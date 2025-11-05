@@ -92,10 +92,17 @@ const presidents: President[] = [
   },
   {
     name: "Andry Rajoelina",
-    term: "2019-Présent",
+    term: "2019-2025",
     republic: "Quatrième République",
     party: "IRD",
     image: "/andry-rajoelina-current-president.jpg",
+  },
+    {
+    name: "Michaël Randrianirina",
+    term: "2025-Présent",
+    republic: "Transition",
+    party: "Militaire",
+    image: "/Michaël-Randrianirina.png",
   },
 ]
 
@@ -109,6 +116,7 @@ const timelineEvents = [
   { year: "2009", event: "Crise politique - Andry Rajoelina" },
   { year: "2014", event: "Hery Rajaonarimampianina - Quatrième République" },
   { year: "2019", event: "Andry Rajoelina réélu" },
+  { year: "2025", event: "Crise politique - Michaël-Randrianirina" },
 ]
 
 function PresidentCard({ president, index }: { president: President; index: number }) {
@@ -153,7 +161,7 @@ function PresidentCard({ president, index }: { president: President; index: numb
               <h3 className="text-lg sm:text-xl font-semibold text-foreground">{president.name}</h3>
               <p className="text-sm text-muted-foreground">{president.term}</p>
               <div className="flex flex-wrap gap-2 mt-2">
-                <span className="text-xs px-2 py-1 rounded-full bg-accent text-accent-foreground">
+                <span className="text-xs px-2 py-1 rounded-full bg-accent/90 text-accent-foreground">
                   {president.republic}
                 </span>
                 <span className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
