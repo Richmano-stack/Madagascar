@@ -153,7 +153,7 @@ function PresidentCard({ president, index }: { president: President; index: numb
               <h3 className="text-lg sm:text-xl font-semibold text-foreground">{president.name}</h3>
               <p className="text-sm text-muted-foreground">{president.term}</p>
               <div className="flex flex-wrap gap-2 mt-2">
-                <span className="text-xs px-2 py-1 rounded-full bg-accent/20 text-accent-foreground">
+                <span className="text-xs px-2 py-1 rounded-full bg-accent text-accent-foreground">
                   {president.republic}
                 </span>
                 <span className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
