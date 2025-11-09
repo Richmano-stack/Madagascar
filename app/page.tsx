@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { ChatbotFAB } from '@/components/ChatbotFAB'
 
 interface President {
   name: string
@@ -427,6 +428,7 @@ export default function Page() {
           </div>
         </div>
       </footer>
+      <ChatbotFAB />
     </div>
   )
 }
