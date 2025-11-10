@@ -62,7 +62,7 @@ export default function ChatbotWidget() {
   };
 
   return (
-    <div className="flex flex-col w-[390px] h-[80vh] max-h-[700px] bg-card border border-border/40 rounded-2xl shadow-lg overflow-hidden">
+    <div className="flex flex-col h-[70vh] max-h-[550px] w-full bg-card shadow-xl rounded-xl border border-border/50 overflow-hidden">
       {/* Header */}
       <div className="p-3 bg-secondary text-secondary-foreground border-b border-border/40 flex items-center justify-between">
         <div className="flex items-center space-x-2">
