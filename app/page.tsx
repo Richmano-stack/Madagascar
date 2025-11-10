@@ -11,7 +11,7 @@ const timelineEvents = [
   { year: "1958", event: "Proclamation de la République" },
   { year: "1959", event: "Philibert Tsiranana - Première République" },
   { year: "1972", event: "Crise politique et transition militaire" },
-  { yegar: "1975", event: "Didier Ratsiraka - Deuxième République" },
+  { year: "1975", event: "Didier Ratsiraka - Deuxième République" },
   { year: "1993", event: "Albert Zafy - Troisième République" },
   { year: "2002", event: "Marc Ravalomanana élu" },
   { year: "2009", event: "Crise politique - Andry Rajoelina" },
@@ -48,19 +48,20 @@ function PresidentAccordionItem({ president, index }: { president: President; in
   const accordionValue = president.name + index; 
 
   return (
-    <div
-      ref={cardRef}
-      className={`transition-all duration-700 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
-      style={{ transitionDelay: `${index * 50}ms` }}
-    >
+
       
-      <AccordionItem 
-          value={accordionValue} 
-          className="border border-border/50 rounded-xl overflow-hidden data-[state=open]:border-accent transition-all duration-300"
+      <AccordionItem
+        ref={cardRef}
+        value={accordionValue}
+        className={`
+          border border-border/50 rounded-xl overflow-hidden
+          transition-all duration-700 ease-out
+          data-[state=open]:border-accent
+          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
+        `}
+        style={{ transitionDelay: `${index * 50}ms` }}
       >
-        
+
       
         <AccordionTrigger 
            
@@ -95,7 +96,7 @@ function PresidentAccordionItem({ president, index }: { president: President; in
           </p>
         </AccordionContent>
       </AccordionItem>
-    </div>
+
   )
 }
 
