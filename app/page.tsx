@@ -1,131 +1,17 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ChatbotFAB } from '@/components/ChatbotFAB'
+import { presidents } from "./data/presidents"
+import { President } from "@/types"
 
-interface President {
-  name: string
-  term: string
-  republic: string
-  party: string
-  image: string
-  bio: string
-}
-
-const presidents: President[] = [
-  {
-    name: "Philibert Tsiranana",
-    term: "1959-1972",
-    republic: "Première République",
-    party: "PSD",
-    image: "/philibert-tsiranana-portrait.jpg",
-    bio: "Philibert Tsiranana (1910-1978) fut le premier président de la République malgache, souvent surnommé le « Père de l'Indépendance ». Il a dirigé le pays de 1959 à 1972, une période de relative stabilité politique. Son régime se caractérisait par un Socialisme malgache pragmatique et des liens forts avec la France. Son mandat s'est terminé de manière abrupte en 1972, après de vastes manifestations étudiantes et populaires, le forçant à remettre les pleins pouvoirs au Général Ramanantsoa.",
-  },
-  {
-    name: "Gabriel Ramanantsoa",
-    term: "1972-1975",
-    republic: "Transition",
-    party: "Militaire",
-    image: "/gabriel-ramanantsoa-portrait.jpg",
-    bio: "Le Général Gabriel Ramanantsoa (1906-1979) prend la tête de l'État en 1972 après la crise politique ayant renversé Tsiranana, marquant le début de la « transition militaire ». Sa direction avait pour objectif la malgachisation de l'administration et de l'enseignement. Il a cherché à ramener l'ordre dans une période de forte agitation sociale et économique, avant de remettre ses pouvoirs au Colonel Ratsimandrava en février 1975.",
-  },
-  {
-    name: "Richard Ratsimandrava",
-    term: "1975 (6 jours)",
-    republic: "Transition",
-    party: "Militaire",
-    image: "/richard-ratsimandrava-portrait.jpg",
-    bio: "Le Colonel Richard Ratsimandrava (1931-1975) est resté chef d'État pendant seulement six jours (du 5 au 11 février 1975). Son accession au pouvoir était vue comme le début d'une nouvelle ère de développement national axée sur le Fokon'olona (système communautaire malgache). Son programme fut brusquement interrompu par son assassinat dans des circonstances qui n'ont jamais été élucidées.",
-  },
-  {
-    name: "Gilles Andriamahazo",
-    term: "1975",
-    republic: "Transition",
-    party: "Militaire",
-    image: "/gilles-andriamahazo-portrait.jpg",
-    bio: "Le Général Gilles Andriamahazo (1919-1989) a brièvement assuré la présidence du Comité national militaire après l'assassinat de Richard Ratsimandrava en février 1975. Son rôle principal fut d'être un garant de l'ordre et de la stabilité durant la période d'enquête et de fortes tensions, jusqu'à ce que le pouvoir soit transféré à Didier Ratsiraka en juin 1975.",
-  },
-  {
-    name: "Didier Ratsiraka",
-    term: "1975-1993",
-    republic: "Deuxième République",
-    party: "AREMA",
-    image: "/didier-ratsiraka-portrait.jpg",
-    bio: "Didier Ratsiraka (1936-2021), surnommé l'« Amiral rouge », a dominé la vie politique malgache. Son premier mandat (1975-1993) a marqué l'instauration de la Deuxième République, un régime fondé sur une idéologie socialiste et tiers-mondiste. Il a nationalisé des secteurs clés de l'économie. Il a été chassé du pouvoir en 1993 après des années de crise économique et de grandes manifestations.",
-  },
-  {
-    name: "Albert Zafy",
-    term: "1993-1996",
-    republic: "Troisième République",
-    party: "UNDD",
-    image: "/albert-zafy-portrait.jpg",
-    bio: "Le Professeur Albert Zafy (1927-2017) a été le premier président de la Troisième République (1993-1996). Il a été porté au pouvoir sur une plateforme axée sur la démocratie et la lutte contre la corruption. Son mandat fut cependant marqué par des conflits institutionnels majeurs avec le Parlement et le Premier ministre, conduisant à sa destitution par la Haute Cour Constitutionnelle en 1996.",
-  },
-  {
-    name: "Norbert Ratsirahonana",
-    term: "1996-1997",
-    republic: "Intérim",
-    party: "Indépendant",
-    image: "/norbert-ratsirahonana-portrait.jpg",
-    bio: "Norbert Lala Ratsirahonana (né en 1938), juriste et ancien Premier ministre, a servi comme Président par intérim de la République de septembre 1996 à février 1997. Il a assumé la fonction suprême après la destitution d'Albert Zafy et a préparé l'élection présidentielle de 1996.",
-  },
-  {
-    name: "Didier Ratsiraka",
-    term: "1997-2002",
-    republic: "Troisième République",
-    party: "AREMA",
-    image: "/didier-ratsiraka-second-term.jpg",
-    bio: "Didier Ratsiraka est revenu au pouvoir en 1997 pour un second mandat. Cette période a été caractérisée par une libéralisation économique. Son second mandat s'est terminé dans la crise post-électorale de 2001-2002, conduisant à son exil en France.",
-  },
-  {
-    name: "Marc Ravalomanana",
-    term: "2002-2009",
-    republic: "Troisième République",
-    party: "TIM",
-    image: "/marc-ravalomanana-portrait.jpg",
-    bio: "Marc Ravalomanana (né en 1949), homme d'affaires, a été élu président en 2002. Il a géré le pays avec une approche d'entrepreneur axée sur la modernisation rapide et les réformes économiques. Son mandat a vu une augmentation des investissements étrangers, mais aussi une opposition croissante qui a mené à son renversement en mars 2009.",
-  },
-  {
-    name: "Andry Rajoelina",
-    term: "2009-2014",
-    republic: "Transition",
-    party: "TGV",
-    image: "/andry-rajoelina-portrait.jpg",
-    bio: "Andry Rajoelina (né en 1974), ancien maire d'Antananarivo, a pris le pouvoir en mars 2009 en tant que Président de la Haute Autorité de Transition (HAT). Cette période, non reconnue internationalement, a été marquée par des sanctions. Son gouvernement a cherché à stabiliser la situation politique en vue d'un retour à l'ordre constitutionnel.",
-  },
-  {
-    name: "Hery Rajaonarimampianina",
-    term: "2014-2018",
-    republic: "Quatrième République",
-    party: "HVM",
-    image: "/hery-rajaonarimampianina-portrait.jpg",
-    bio: "Hery Rajaonarimampianina (né en 1958), expert-comptable, a été élu président en 2013, marquant le retour du pays à l'ordre constitutionnel. Son mandat s'est concentré sur la reconstruction des infrastructures et la relance économique. Il a démissionné en 2018 pour se présenter à sa réélection, conformément à la Constitution.",
-  },
-  {
-    name: "Andry Rajoelina",
-    term: "2019-2025",
-    republic: "Quatrième République",
-    party: "IRD",
-    image: "/andry-rajoelina-current-president.jpg",
-    bio: "Andry Rajoelina est revenu au pouvoir en janvier 2019. Son second mandat est axé sur l'Initiative pour l'Émergence de Madagascar (IEM), le développement des infrastructures et la transformation économique et sociale. Cette période a été marquée par la gestion de la crise sanitaire et par d'importants défis sociaux et économiques.",
-  },
-  {
-    name: "Michaël Randrianirina",
-    term: "2025-Présent",
-    republic: "Transition",
-    party: "Militaire",
-    image: "/Michaël-Randrianirina.png",
-    bio: "Michaël Randrianirina a pris le pouvoir en 2025 à la suite d'une crise politique majeure. En tant que chef militaire, il dirige une transition vers un gouvernement civil.",
-  },
-]
 
 const timelineEvents = [
   { year: "1958", event: "Proclamation de la République" },
   { year: "1959", event: "Philibert Tsiranana - Première République" },
   { year: "1972", event: "Crise politique et transition militaire" },
-  { year: "1975", event: "Didier Ratsiraka - Deuxième République" },
+  { yegar: "1975", event: "Didier Ratsiraka - Deuxième République" },
   { year: "1993", event: "Albert Zafy - Troisième République" },
   { year: "2002", event: "Marc Ravalomanana élu" },
   { year: "2009", event: "Crise politique - Andry Rajoelina" },

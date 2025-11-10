@@ -10,7 +10,7 @@ export const ChatbotFAB = () => {
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end space-y-2">
-      {/* Chat widget */}
+
       {isOpen && (
         <div
           className="
@@ -23,7 +23,7 @@ export const ChatbotFAB = () => {
         </div>
       )}
 
-      {/* Floating Action Button */}
+
       <button
         onClick={toggleWidget}
         className={`p-4 rounded-full shadow-lg flex items-center justify-center transition-all duration-300
